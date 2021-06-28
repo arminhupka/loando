@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 // Components
 import { Container } from '../../styles/GlobalStyle';
+import devices from '../../styles/devices';
 
 // Styled Components
 const Copyright = styled.div`
@@ -13,8 +14,19 @@ const Copyright = styled.div`
   }
 `;
 
+const Widget = styled.div``;
+
 const FooterContent = styled.div`
   padding: 5rem 0;
+  ${Container} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media screen and ${devices.lg} {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 `;
 
 const StyledFooter = styled.footer`
@@ -29,7 +41,21 @@ const StyledFooter = styled.footer`
 const Footer = () => (
   <StyledFooter>
     <FooterContent>
-      <Container>Footer</Container>
+      <Container>
+        <Widget>
+          <h1>Loando</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsam placeat repudiandae similique voluptates
+            voluptatum?
+          </p>
+        </Widget>
+        <Widget>
+          <h1>Widget</h1>
+        </Widget>
+        <Widget>
+          <h1>Widget</h1>
+        </Widget>
+      </Container>
     </FooterContent>
     <Copyright>
       <Container>

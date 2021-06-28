@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import devices from '../../styles/devices';
 
 // Components
@@ -17,6 +18,10 @@ const CalcWrapper = styled.div`
     margin-bottom: 2rem;
   }
 
+  ${Button} {
+    margin-top: 2rem;
+  }
+
   @media screen and ${devices.lg} {
     max-width: 40rem;
   }
@@ -29,12 +34,25 @@ const StyledRange = styled.input`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+
+  span {
+    font-size: 2rem;
+
+    :nth-child(2) {
+      font-size: 2em;
+      font-weight: 500;
+    }
+  }
 `;
 
 const LoanCalc = () => {
-  const [loanValue, setLoanValue] = useState(0);
+  const [loanValue, setLoanValue] = useState(1000);
+  const [days, setDays] = useState(5);
 
   const handleRangeInput = (e) => setLoanValue(e.target.value);
+
+  const handleDaysRange = (e) => setDays(e.target.value);
 
   return (
     <CalcWrapper>
@@ -43,7 +61,12 @@ const LoanCalc = () => {
         <span>Pożyczasz</span>
         <span>{loanValue} zł</span>
       </Row>
-      <StyledRange type='range' min={100} max={3500} step={100} onChange={handleRangeInput} />
+      <StyledRange type='range' min={100} max={3500} step={100} value={loanValue} onChange={handleRangeInput} />
+      <Row>
+        <span>Okres</span>
+        <span>{days} dni</span>
+      </Row>
+      <StyledRange type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
       <Button alternative>Weź pożyczkę</Button>
     </CalcWrapper>
   );
