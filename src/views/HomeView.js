@@ -1,9 +1,12 @@
 import React from 'react';
 import MainLayout from '../layouts/MainLayout';
+import Hero from '../components/Hero/Hero';
+import Steps from '../components/Steps/Steps';
 
 const HomeView = () => (
   <MainLayout>
-    <h1>Home View</h1>
+    <Hero />
+    <Steps />
   </MainLayout>
 );
 
