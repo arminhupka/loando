@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { AiOutlineFileDone } from 'react-icons/ai';
 
 const Wrapper = styled.div`
   text-align: center;
@@ -9,14 +11,32 @@ const Wrapper = styled.div`
   }
 `;
 
-const StepItem = () => (
+const IconWrapper = styled.div`
+  padding: 2rem;
+  display: inline-flex;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  background: ${({ theme }) => theme.primary};
+  border-radius: 50%;
+
+  svg {
+    font-size: 6rem;
+  }
+`;
+
+const StepItem = ({ title, text }) => (
   <Wrapper>
-    <h1>Step Item</h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias asperiores autem eos rem! Eligendi est numquam possimus
-      recusandae sint ullam?
-    </p>
+    <IconWrapper>
+      <AiOutlineFileDone />
+    </IconWrapper>
+    <h1>{title}</h1>
+    <p>{text}</p>
   </Wrapper>
 );
+
+StepItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 export default StepItem;

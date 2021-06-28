@@ -11,8 +11,8 @@ import devices from '../../styles/devices';
 // StyledComponents
 const Wrapper = styled.div`
   position: relative;
-  height: 50rem;
-  padding: 2rem 0;
+  //height: 50rem;
+  padding: 5rem 0;
   color: #fff;
   background: url(${background}) no-repeat center;
   background-size: cover;

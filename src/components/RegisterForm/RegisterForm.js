@@ -34,6 +34,7 @@ const StyledForm = styled.form`
 
 const Row = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 0 -1rem;
   margin-bottom: 1rem;
 `;
@@ -43,6 +44,7 @@ const Col = styled.div`
   padding: 0 1rem;
   & > * {
     width: 100%;
+    margin-bottom: 1rem;
   }
 `;
 
