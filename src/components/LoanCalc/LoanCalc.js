@@ -9,7 +9,6 @@ import Button from '../Elements/Button/Button';
 // Styled Components
 const CalcWrapper = styled.div`
   width: 100%;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.primary};
@@ -29,6 +28,18 @@ const CalcWrapper = styled.div`
 
 const StyledRange = styled.input`
   width: 100%;
+`;
+
+const TopWrapper = styled.div`
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+`;
+
+const InfoWrapper = styled.div`
+  padding: 2rem;
+  color: initial;
+  background: #fff;
 `;
 
 const Row = styled.div`
@@ -56,18 +67,25 @@ const LoanCalc = () => {
 
   return (
     <CalcWrapper>
-      <h2>Ile kosztuje pożyczka?</h2>
-      <Row>
-        <span>Pożyczasz</span>
-        <span>{loanValue} zł</span>
-      </Row>
-      <StyledRange type='range' min={100} max={3500} step={100} value={loanValue} onChange={handleRangeInput} />
-      <Row>
-        <span>Okres</span>
-        <span>{days} dni</span>
-      </Row>
-      <StyledRange type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
-      <Button alternative>Weź pożyczkę</Button>
+      <TopWrapper>
+        <h2>Ile kosztuje pożyczka?</h2>
+        <Row>
+          <span>Pożyczasz</span>
+          <span>{loanValue} zł</span>
+        </Row>
+        <StyledRange type='range' min={100} max={3500} step={100} value={loanValue} onChange={handleRangeInput} />
+        <Row>
+          <span>Okres</span>
+          <span>{days} dni</span>
+        </Row>
+        <StyledRange type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
+        <Button alternative>Weź pożyczkę</Button>
+      </TopWrapper>
+      <InfoWrapper>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus molestias sunt temporibus velit voluptatum. Aut
+        ducimus enim nam soluta. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur culpa cupiditate dicta
+        dolore nihil vero?
+      </InfoWrapper>
     </CalcWrapper>
   );
 };

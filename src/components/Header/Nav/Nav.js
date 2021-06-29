@@ -71,10 +71,39 @@ const StyledItem = styled.li`
       width: 100%;
       height: 0.5rem;
       left: 0;
-      bottom: 0;
+      bottom: -0.1rem;
       display: block;
       background: ${({ theme }) => theme.primaryDark};
     }
+  }
+`;
+
+const StyledAvatar = styled.div`
+  width: 7rem;
+  height: 7rem;
+  margin-right: 1rem;
+  background: ${({ theme }) => theme.primary};
+  border-radius: 50%;
+`;
+
+const InfoWrapper = styled.div`
+  flex: 1 auto;
+  display: flex;
+  flex-direction: column;
+`;
+
+const LoginItem = styled.li`
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.gray};
+
+  span {
+    display: block;
+  }
+
+  @media screen and ${devices.lg} {
+    display: none;
   }
 `;
 
@@ -105,6 +134,15 @@ const Nav = ({ isOpen, onToggle }) => (
   <>
     <StyledNav isOpen={isOpen}>
       <StyledList>
+        <LoginItem>
+          <StyledAvatar />
+          <InfoWrapper>
+            <span>Witaj, nieznajomy</span>
+            <Link to='/zaloguj'>
+              <span>Zaloguj się</span>
+            </Link>
+          </InfoWrapper>
+        </LoginItem>
         <StyledItem>
           <Link to='/'>Strona główna</Link>
         </StyledItem>

@@ -17,6 +17,7 @@ const StyledButton = styled.button``;
 const StyledHeader = styled.header`
   height: 8rem;
   background: #fff;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.gray};
 
   ${Container} {
     height: 100%;
