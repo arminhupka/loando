@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import api from '../../utils/api';
 
 // Components
 import Button from '../Elements/Button/Button';
@@ -39,7 +40,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isAuth, setIsAuth] = useState(false);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -59,7 +59,7 @@ const LoginForm = () => {
     }
   };
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
 
     if (!email.includes('@')) {
@@ -69,12 +69,22 @@ const LoginForm = () => {
       }, 3000);
     }
 
-    setIsAuth(true);
-  };
+    try {
+      const { data } = await api.post('/user/login', {
+        email,
+        password,
+      });
 
-  if (isAuth) {
-    return <Redirect to='/' />;
-  }
+      console.log(data);
+    } catch (err) {
+      if (err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+        setTimeout(() => {
+          setError('');
+        }, 3000);
+      }
+    }
+  };
 
   return (
     <StyledForm onSubmit={handleForm}>

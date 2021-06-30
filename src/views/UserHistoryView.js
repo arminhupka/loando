@@ -11,12 +11,12 @@ const Wrapper = styled.div`
   border: 0.1rem solid ${({ theme }) => theme.gray};
 `;
 
-const UserSettingsView = () => (
+const UserHistoryView = () => (
   <AccountLayout>
     <Wrapper>
-      <h1>User Settings</h1>
+      <h1>User history</h1>
     </Wrapper>
   </AccountLayout>
 );
 
-export default UserSettingsView;
+export default UserHistoryView;

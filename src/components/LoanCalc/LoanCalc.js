@@ -27,19 +27,23 @@ const CalcWrapper = styled.div`
 `;
 
 const StyledRange = styled.input`
+  -webkit-appearance: none;
   width: 100%;
-`;
+  background: transparent;
+  ::-webkit-slider-container {
+    padding: 0.2rem;
+    background: #fff;
+    border-radius: 2rem;
+  }
 
-const TopWrapper = styled.div`
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-`;
-
-const InfoWrapper = styled.div`
-  padding: 2rem;
-  color: initial;
-  background: #fff;
+  ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 2rem;
+    height: 2rem;
+    background: ${({ theme }) => theme.primary};
+    border-radius: 50%;
+    cursor: pointer;
+  }
 `;
 
 const Row = styled.div`
@@ -55,6 +59,28 @@ const Row = styled.div`
       font-weight: 500;
     }
   }
+`;
+
+const TopWrapper = styled.div`
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  ${Row} {
+    :nth-of-type(2) {
+      margin-top: 1rem;
+    }
+  }
+
+  & > * {
+    margin-bottom: 1rem;
+  }
+`;
+
+const InfoWrapper = styled.div`
+  padding: 2rem;
+  color: initial;
+  background: #fff;
 `;
 
 const LoanCalc = () => {
@@ -79,7 +105,7 @@ const LoanCalc = () => {
           <span>{days} dni</span>
         </Row>
         <StyledRange type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
-        <Button alternative>Weź pożyczkę</Button>
+        <Button alternative>Zaloguj się i weź pożyczkę</Button>
       </TopWrapper>
       <InfoWrapper>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus molestias sunt temporibus velit voluptatum. Aut

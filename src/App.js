@@ -10,6 +10,8 @@ import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import ContactView from './views/ContactView';
 import UserProfileView from './views/UserProfileView';
+import UserNewLoanView from './views/UserNewLoanView';
+import UserHistoryView from './views/UserHistoryView';
 import UserSettingsView from './views/UserSettingsView';
 import NotFoundView from './views/NotFoundView';
 
@@ -28,6 +30,8 @@ const App = () => (
         <Route exact path='/rejestracja' component={RegisterView} />
         <Route exact path='/kontakt' component={ContactView} />
         <Route exact path='/konto' component={UserProfileView} />
+        <Route exact path='/konto/historia' component={UserHistoryView} />
+        <Route exact path='/konto/nowa-pozyczka' component={UserNewLoanView} />
         <Route exact path='/konto/ustawienia' component={UserSettingsView} />
         <Route exact path='*' component={NotFoundView} />
       </Switch>

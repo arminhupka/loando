@@ -43,7 +43,7 @@ const Sidebar = () => (
         </Link>
       </StyledItem>
       <StyledItem>
-        <Link to='/konto/ustawienia'>
+        <Link to='/konto/nowa-pozyczka'>
           <FaHome /> Nowa pożyczka
         </Link>
       </StyledItem>
