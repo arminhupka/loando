@@ -72,7 +72,7 @@ const LoginForm = () => {
     dispatch(userLogin(email, password));
   };
 
-  if (user.user) {
+  if (user.data) {
     return <Redirect to='/konto' />;
   }
 

@@ -6,14 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { userLogout } from '../../actions/userActions';
+import devices from '../../styles/devices';
 
 // Styled Components
 const SidebarWrapper = styled.aside`
   height: 100%;
   width: 100%;
-  max-width: 30rem;
+  margin-bottom: 2rem;
   color: #fff;
   background: ${({ theme }) => theme.primaryDark};
+
+  @media screen and ${devices.lg} {
+    max-width: 30rem;
+    margin-bottom: 0;
+  }
 `;
 
 const StyledList = styled.ul``;
@@ -26,6 +32,7 @@ const StyledItem = styled.li`
     padding: 2rem;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   a {
@@ -37,6 +44,7 @@ const StyledItem = styled.li`
   svg {
     margin-right: 1rem;
     font-size: 2rem;
+    color: ${({ theme }) => theme.primaryLight};
   }
 
   :hover {
@@ -52,7 +60,7 @@ const Sidebar = () => {
 
   const handleLogout = () => dispatch(userLogout());
 
-  if (!user.user) {
+  if (!user.data) {
     return <Redirect to='/' />;
   }
 
@@ -70,7 +78,7 @@ const Sidebar = () => {
           </Link>
         </StyledItem>
         <StyledItem>
-          <Link to='/konto/ustawienia'>
+          <Link to='/konto/historia'>
             <FaHome /> Historia
           </Link>
         </StyledItem>

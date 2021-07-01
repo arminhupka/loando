@@ -1,5 +1,5 @@
 import api from '../utils/api';
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_LOGOUT } from './types';
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, ALERT_ADD } from './types';
 import { addAlert } from './alertActions';
 
 export const userLogin = (email, password) => async (dispatch) => {
@@ -24,19 +24,30 @@ export const userLogin = (email, password) => async (dispatch) => {
       type: USER_LOGIN_FAIL,
     });
 
-    if (err.response.status === 404) {
-      dispatch(addAlert('Błędny adres email lub hasło', 'error'));
+    if (!err.status) {
+      dispatch({
+        type: ALERT_ADD,
+        payload: {
+          msg: 'Błąd połączenia z serwerem',
+          type: 'error',
+        },
+      });
     }
 
-    if (err.response.status === 400) {
-      dispatch(addAlert('Nie wprowadziłeś adresu email lub hasła', 'error'));
+    if (err.response) {
+      if (err.response.status === 404) {
+        dispatch(addAlert('Błędny adres email lub hasło', 'error'));
+      }
+
+      if (err.response.status === 400) {
+        dispatch(addAlert('Nie wprowadziłeś adresu email lub hasła', 'error'));
+      }
     }
   }
 };
 
 export const userLogout = () => (dispatch) => {
   localStorage.removeItem('user');
-
   dispatch({
     type: USER_LOGIN_LOGOUT,
   });

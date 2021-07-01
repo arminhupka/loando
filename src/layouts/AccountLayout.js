@@ -14,13 +14,20 @@ import devices from '../styles/devices';
 // Styled Components
 const Content = styled.div`
   flex: 1 auto;
+  padding: 2rem 0;
 
   @media screen and ${devices.lg} {
+    padding: 0;
     display: flex;
   }
 
   ${Container} {
     display: flex;
+    flex-direction: column;
+
+    @media screen and ${devices.lg} {
+      flex-direction: row;
+    }
   }
 `;
 

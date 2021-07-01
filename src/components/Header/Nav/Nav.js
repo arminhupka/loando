@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import devices from '../../../styles/devices';
 
@@ -130,36 +131,48 @@ const Overlay = styled.div`
     `}
 `;
 
-const Nav = ({ isOpen, onToggle }) => (
-  <>
-    <StyledNav isOpen={isOpen}>
-      <StyledList>
-        <LoginItem>
-          <StyledAvatar />
-          <InfoWrapper>
-            <span>Witaj, nieznajomy</span>
-            <Link to='/zaloguj'>
-              <span>Zaloguj się</span>
-            </Link>
-          </InfoWrapper>
-        </LoginItem>
-        <StyledItem>
-          <Link to='/'>Strona główna</Link>
-        </StyledItem>
-        <StyledItem>
-          <Link to='/'>Home</Link>
-        </StyledItem>
-        <StyledItem>
-          <Link to='/'>O Nas</Link>
-        </StyledItem>
-        <StyledItem>
-          <Link to='/kontakt'>Kontakt</Link>
-        </StyledItem>
-      </StyledList>
-    </StyledNav>
-    <Overlay isOpen={isOpen} onClick={onToggle} />
-  </>
-);
+const Nav = ({ isOpen, onToggle }) => {
+  const { user } = useSelector((state) => state.user);
+
+  return (
+    <>
+      <StyledNav isOpen={isOpen}>
+        <StyledList>
+          <LoginItem>
+            <StyledAvatar />
+            <InfoWrapper>
+              {user ? (
+                <>
+                  <span>Witaj, {user.firstName}</span>
+                  <Link to='/konto'>
+                    <span>Twoje konto</span>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <span>Witaj, nieznajomy</span>
+                  <Link to='/zaloguj'>
+                    <span>Zaloguj się</span>
+                  </Link>
+                </>
+              )}
+            </InfoWrapper>
+          </LoginItem>
+          <StyledItem>
+            <Link to='/'>Strona główna</Link>
+          </StyledItem>
+          <StyledItem>
+            <Link to='/'>O Nas</Link>
+          </StyledItem>
+          <StyledItem>
+            <Link to='/kontakt'>Kontakt</Link>
+          </StyledItem>
+        </StyledList>
+      </StyledNav>
+      <Overlay isOpen={isOpen} onClick={onToggle} />
+    </>
+  );
+};
 
 Nav.propTypes = {
   isOpen: propTypes.bool.isRequired,

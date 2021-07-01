@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { HiMenuAlt3 } from 'react-icons/hi';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import devices from '../../styles/devices';
 
 // Hooks
@@ -65,6 +66,8 @@ const Header = () => {
   const { isOpen, onToggle } = useModalState();
   const history = useHistory();
 
+  const user = useSelector((state) => state.user);
+
   const handleButton = () => history.push('/zaloguj');
 
   return (
@@ -77,7 +80,7 @@ const Header = () => {
         <StyledButton onClick={onToggle}>
           <HiMenuAlt3 />
         </StyledButton>
-        <Button onClick={handleButton}>Zaloguj się</Button>
+        {user.data ? <Button onClick={handleButton}>Twoje konto</Button> : <Button onClick={handleButton}>Zaloguj się</Button>}
       </Container>
     </StyledHeader>
   );

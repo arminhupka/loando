@@ -3,7 +3,7 @@ import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_LOGOUT } from '../ac
 const lsUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
 const initial = {
-  user: lsUser,
+  data: lsUser,
   isLoading: false,
 };
 
@@ -19,12 +19,15 @@ const userReducer = (state = initial, action) => {
     }
     case USER_LOGIN_SUCCESS: {
       return {
-        user: payload,
+        data: payload,
         isLoading: false,
       };
     }
     case USER_LOGIN_LOGOUT: {
-      return initial;
+      return {
+        ...initial,
+        data: null,
+      };
     }
     default: {
       return state;

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 
 import devices from '../../styles/devices';
 
 // Components
 import Button from '../Elements/Button/Button';
+import RangeInput from '../Elements/RangeInput/RangeInput';
+
+// Actions
+import { setNewLoan } from '../../actions/loanActions';
 
 // Styled Components
 const CalcWrapper = styled.div`
@@ -23,26 +28,6 @@ const CalcWrapper = styled.div`
 
   @media screen and ${devices.lg} {
     max-width: 40rem;
-  }
-`;
-
-const StyledRange = styled.input`
-  -webkit-appearance: none;
-  width: 100%;
-  background: transparent;
-  ::-webkit-slider-container {
-    padding: 0.2rem;
-    background: #fff;
-    border-radius: 2rem;
-  }
-
-  ::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 2rem;
-    height: 2rem;
-    background: ${({ theme }) => theme.primary};
-    border-radius: 50%;
-    cursor: pointer;
   }
 `;
 
@@ -84,12 +69,24 @@ const InfoWrapper = styled.div`
 `;
 
 const LoanCalc = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
   const [loanValue, setLoanValue] = useState(1000);
   const [days, setDays] = useState(5);
 
-  const handleRangeInput = (e) => setLoanValue(e.target.value);
+  const handleRangeInput = (e) => {
+    setLoanValue(e.target.value);
+  };
 
-  const handleDaysRange = (e) => setDays(e.target.value);
+  const handleDaysRange = (e) => {
+    setDays(e.target.value);
+  };
+
+  const handleButton = () => {
+    dispatch(setNewLoan(loanValue, days));
+  };
 
   return (
     <CalcWrapper>
@@ -99,18 +96,28 @@ const LoanCalc = () => {
           <span>Pożyczasz</span>
           <span>{loanValue} zł</span>
         </Row>
-        <StyledRange type='range' min={100} max={3500} step={100} value={loanValue} onChange={handleRangeInput} />
+        <RangeInput type='range' min={100} max={3500} step={100} value={loanValue} onChange={handleRangeInput} />
         <Row>
           <span>Okres</span>
           <span>{days} dni</span>
         </Row>
-        <StyledRange type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
-        <Button alternative>Zaloguj się i weź pożyczkę</Button>
+        <RangeInput type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
+        {user.data ? (
+          <Button alternative onClick={handleButton}>
+            Weź nową pożyczkę
+          </Button>
+        ) : (
+          <Button alternative onClick={handleButton}>
+            Zaloguj się i weź pożyczkę
+          </Button>
+        )}
       </TopWrapper>
       <InfoWrapper>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus molestias sunt temporibus velit voluptatum. Aut
-        ducimus enim nam soluta. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur culpa cupiditate dicta
-        dolore nihil vero?
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus molestias sunt temporibus velit voluptatum. Aut
+          ducimus enim nam soluta. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur culpa cupiditate dicta
+          dolore nihil vero?
+        </p>
       </InfoWrapper>
     </CalcWrapper>
   );
