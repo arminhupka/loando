@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import api from '../../utils/api';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Action
+import { userLogin } from '../../actions/userActions';
 
 // Components
 import Button from '../Elements/Button/Button';
 import Input from '../Elements/Input/Input';
+import NotificationBar from '../NotificationBar/NotificationBar';
 import devices from '../../styles/devices';
 
 const StyledForm = styled.form`
@@ -37,9 +41,13 @@ const StyledForm = styled.form`
 `;
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+
+  const alerts = useSelector((state) => state.alerts);
+  const user = useSelector((state) => state.user);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -61,35 +69,17 @@ const LoginForm = () => {
 
   const handleForm = async (e) => {
     e.preventDefault();
-
-    if (!email.includes('@')) {
-      setError('email is not email');
-      setTimeout(() => {
-        setError('');
-      }, 3000);
-    }
-
-    try {
-      const { data } = await api.post('/user/login', {
-        email,
-        password,
-      });
-
-      console.log(data);
-    } catch (err) {
-      if (err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-        setTimeout(() => {
-          setError('');
-        }, 3000);
-      }
-    }
+    dispatch(userLogin(email, password));
   };
+
+  if (user.user) {
+    return <Redirect to='/konto' />;
+  }
 
   return (
     <StyledForm onSubmit={handleForm}>
       <h1>Zaloguj</h1>
-      <p>{error}</p>
+      {alerts.length !== 0 ? alerts.map((alert) => <NotificationBar msg={alert.msg} type={alert.type} />) : null}
       <Input type='text' placeholder='adres email' name='email' value={email} onChange={handleInput} />
       <Input type='password' placeholder='hasło' name='password' value={password} onChange={handleInput} />
       <Button>Zaloguj</Button>
