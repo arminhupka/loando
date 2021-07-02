@@ -17,7 +17,7 @@ const SidebarWrapper = styled.aside`
   background: ${({ theme }) => theme.primaryDark};
 
   @media screen and ${devices.lg} {
-    max-width: 30rem;
+    max-width: 20rem;
     margin-bottom: 0;
   }
 `;
