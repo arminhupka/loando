@@ -14,6 +14,7 @@ import UserProfileView from './views/UserProfileView';
 import UserNewLoanView from './views/UserNewLoanView';
 import UserHistoryView from './views/UserHistoryView';
 import UserSettingsView from './views/UserSettingsView';
+import UserPayLoanView from './views/UserPayLoanView';
 import NotFoundView from './views/NotFoundView';
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
         <PrivateRoute exact path='/konto' component={UserProfileView} />
         <PrivateRoute exact path='/konto/historia' component={UserHistoryView} />
         <PrivateRoute exact path='/konto/nowa-pozyczka' component={UserNewLoanView} />
+        <PrivateRoute exact path='/konto/splac' component={UserPayLoanView} />
         <PrivateRoute exact path='/konto/ustawienia' component={UserSettingsView} />
         <Route exact path='*' component={NotFoundView} />
       </Switch>

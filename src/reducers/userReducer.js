@@ -6,11 +6,15 @@ import {
   LOAN_LIST_REQUEST,
   LOAN_LIST_SUCCESS,
   LOAN_LIST_ADD,
+  LOAN_PAY_SUCCESS,
+  LOAN_PAY_REQUEST,
+  LOAN_DETAILS_SUCCESS,
 } from '../actions/types';
 
 const initial = {
   data: null,
   loans: [],
+  displayedLoan: null,
   isLoading: false,
 };
 
@@ -58,6 +62,25 @@ const userReducer = (state = initial, action) => {
       return {
         ...state,
         loans: [...state.loans, payload],
+      };
+    }
+    case LOAN_PAY_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case LOAN_PAY_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        loans: state.loans.map((loan) => (loan._id === payload._id ? { ...payload } : loan)),
+      };
+    }
+    case LOAN_DETAILS_SUCCESS: {
+      return {
+        ...state,
+        displayedLoan: payload,
       };
     }
     default: {

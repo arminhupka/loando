@@ -4,9 +4,11 @@ import { Link, Redirect } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
+// Utils
+import devices from '../../styles/devices';
+
 // Actions
 import { userLogout } from '../../actions/userActions';
-import devices from '../../styles/devices';
 
 // Styled Components
 const SidebarWrapper = styled.aside`
