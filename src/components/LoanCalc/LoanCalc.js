@@ -88,7 +88,10 @@ const LoanCalc = () => {
 
   const handleButton = () => {
     dispatch(setNewLoan(loanValue, days));
-    history.push('/konto/nowa-pozyczka');
+    if (user.data) {
+      history.push('/konto/nowa-pozyczka');
+    }
+    history.push('/zaloguj');
   };
 
   return (

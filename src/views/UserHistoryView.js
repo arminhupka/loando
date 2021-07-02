@@ -46,7 +46,7 @@ const UserHistoryView = () => {
       <Wrapper>
         <h1>Twoja historia pożyczek</h1>
         <StyledList>
-          {user.loans.length !== 0 ? user.loans.map((loan) => <StyledItem>{loan.value}</StyledItem>) : null}
+          {user.loans.length !== 0 ? user.loans.map((loan) => <StyledItem key={loan._id}>{loan.value}</StyledItem>) : null}
         </StyledList>
       </Wrapper>
     </AccountLayout>

@@ -34,7 +34,6 @@ const userReducer = (state = initial, action) => {
     case USER_LOGIN_LOGOUT: {
       return {
         ...initial,
-        data: null,
       };
     }
     case LOAN_TAKE_SUCCESS: {

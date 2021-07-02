@@ -26,12 +26,8 @@ const UserProfileView = () => {
   return (
     <AccountLayout>
       <Wrapper>
-        {user.data && (
-          <>
-            <h1>Witaj {user.data.firstName}</h1>
-            <h2>Masz obecnie {user.loans.length} pożyczek</h2>
-          </>
-        )}
+        <h1>Witaj {user.data.firstName}</h1>
+        <h2>Masz obecnie {user.loans.length} pożyczek</h2>
       </Wrapper>
     </AccountLayout>
   );

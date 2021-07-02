@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Action
 import { userLogin } from '../../actions/userActions';
+import { addAlert } from '../../actions/alertActions';
 
 // Components
 import Button from '../Elements/Button/Button';
@@ -69,6 +70,10 @@ const LoginForm = () => {
 
   const handleForm = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      dispatch(addAlert('Nie wprowadziłeś adresu email lub hasła', 'error'));
+      return;
+    }
     dispatch(userLogin(email, password));
   };
 

@@ -1,5 +1,5 @@
 import api from '../utils/api';
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, ALERT_ADD } from './types';
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_LOGOUT, USER_LOGIN_FAIL, ALERT_REMOVE } from './types';
 import { addAlert } from './alertActions';
 
 export const userLogin = (email, password) => async (dispatch) => {
@@ -18,21 +18,15 @@ export const userLogin = (email, password) => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem('user', JSON.stringify(data));
+    dispatch({
+      type: ALERT_REMOVE,
+    });
   } catch (err) {
+    console.log(err.response);
+
     dispatch({
       type: USER_LOGIN_FAIL,
     });
-
-    if (!err.status) {
-      dispatch({
-        type: ALERT_ADD,
-        payload: {
-          msg: 'Błąd połączenia z serwerem',
-          type: 'error',
-        },
-      });
-    }
 
     if (err.response) {
       if (err.response.status === 404) {

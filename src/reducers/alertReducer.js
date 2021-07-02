@@ -1,4 +1,4 @@
-import { ALERT_ADD } from '../actions/types';
+import { ALERT_ADD, ALERT_REMOVE } from '../actions/types';
 
 const initialState = [];
 
@@ -7,7 +7,10 @@ const alertReducer = (state = initialState, action) => {
 
   switch (type) {
     case ALERT_ADD: {
-      return [...state, payload];
+      return [payload];
+    }
+    case ALERT_REMOVE: {
+      return initialState;
     }
     default: {
       return state;

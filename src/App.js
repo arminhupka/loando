@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import GlobalStyle from './styles/GlobalStyle';
+import PrivateRoute from './utils/PrivateRoute';
 
 // Views
 import HomeView from './views/HomeView';
@@ -29,10 +30,10 @@ const App = () => (
         <Route exact path='/zaloguj' component={LoginView} />
         <Route exact path='/rejestracja' component={RegisterView} />
         <Route exact path='/kontakt' component={ContactView} />
-        <Route exact path='/konto' component={UserProfileView} />
-        <Route exact path='/konto/historia' component={UserHistoryView} />
-        <Route exact path='/konto/nowa-pozyczka' component={UserNewLoanView} />
-        <Route exact path='/konto/ustawienia' component={UserSettingsView} />
+        <PrivateRoute exact path='/konto' component={UserProfileView} />
+        <PrivateRoute exact path='/konto/historia' component={UserHistoryView} />
+        <PrivateRoute exact path='/konto/nowa-pozyczka' component={UserNewLoanView} />
+        <PrivateRoute exact path='/konto/ustawienia' component={UserSettingsView} />
         <Route exact path='*' component={NotFoundView} />
       </Switch>
     </BrowserRouter>
