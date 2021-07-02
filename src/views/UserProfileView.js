@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// Actions
+import { getUserLoans } from '../actions/loanActions';
 
 // Components
 import AccountLayout from '../layouts/AccountLayout';
@@ -13,23 +16,12 @@ const Wrapper = styled.div`
 `;
 
 const UserProfileView = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const pluralsLoansNameGenerator = (num) => {
-    if (num === 1) {
-      return 'pożyczkę';
-    }
-
-    if (num === 2 && num < 5) {
-      return 'pożyczki';
-    }
-
-    if (num > 5) {
-      return 'pożyczek';
-    }
-
-    return null;
-  };
+  useEffect(() => {
+    dispatch(getUserLoans());
+  }, []);
 
   return (
     <AccountLayout>
@@ -37,9 +29,7 @@ const UserProfileView = () => {
         {user.data && (
           <>
             <h1>Witaj {user.data.firstName}</h1>
-            <p>
-              Masz obecnie {user.data.loans.length} aktywne {pluralsLoansNameGenerator(user.data.loans.length)}
-            </p>
+            <h2>Masz obecnie {user.loans.length} pożyczek</h2>
           </>
         )}
       </Wrapper>

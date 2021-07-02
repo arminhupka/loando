@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import devices from '../../styles/devices';
@@ -70,11 +71,12 @@ const InfoWrapper = styled.div`
 
 const LoanCalc = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector((state) => state.user);
 
   const [loanValue, setLoanValue] = useState(1000);
-  const [days, setDays] = useState(5);
+  const [days, setDays] = useState(20);
 
   const handleRangeInput = (e) => {
     setLoanValue(e.target.value);
@@ -86,6 +88,7 @@ const LoanCalc = () => {
 
   const handleButton = () => {
     dispatch(setNewLoan(loanValue, days));
+    history.push('/konto/nowa-pozyczka');
   };
 
   return (

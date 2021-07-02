@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Components
 import AccountLayout from '../layouts/AccountLayout';
 import RangeInput from '../components/Elements/RangeInput/RangeInput';
 import Button from '../components/Elements/Button/Button';
+import { takeNewLoan } from '../actions/loanActions';
 
 // Styled Components
 const Wrapper = styled.div`
@@ -35,15 +36,17 @@ const FormWrapper = styled.div`
 `;
 
 const UserNewLoanView = () => {
+  const dispatch = useDispatch();
   const newLoanValues = useSelector((state) => state.newLoan);
 
-  const handleValueRange = () => {
-    // setLoanValue(e.target.value);
-  };
+  const [value, setValue] = useState(newLoanValues.value);
+  const [days, setDays] = useState(newLoanValues.days);
 
-  const handleDaysRange = () => {
-    // setDays(e.target.value);
-  };
+  const handleValueRange = (e) => setValue(e.target.value);
+
+  const handleDaysRange = (e) => setDays(e.target.value);
+
+  const handleSubmitButton = () => dispatch(takeNewLoan());
 
   return (
     <AccountLayout>
@@ -51,9 +54,11 @@ const UserNewLoanView = () => {
         <h1>Nowa pożyczka</h1>
         <FormWrapper>
           <h2>Ustaw parametry pożyczki</h2>
-          <RangeInput type='range' min={100} max={3500} step={100} value={newLoanValues.value} onChange={handleValueRange} />
-          <RangeInput type='range' min={5} max={30} step={5} value={newLoanValues.days} onChange={handleDaysRange} />
-          <Button alternative>Weź pożyczkę</Button>
+          <RangeInput type='range' min={100} max={3500} step={100} value={value} onChange={handleValueRange} />
+          <RangeInput type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
+          <Button alternative onClick={handleSubmitButton}>
+            Weź pożyczkę
+          </Button>
         </FormWrapper>
       </Wrapper>
     </AccountLayout>

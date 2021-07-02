@@ -1,9 +1,16 @@
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_LOGOUT } from '../actions/types';
-
-const lsUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+import {
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_LOGOUT,
+  LOAN_TAKE_SUCCESS,
+  LOAN_LIST_REQUEST,
+  LOAN_LIST_SUCCESS,
+  LOAN_LIST_ADD,
+} from '../actions/types';
 
 const initial = {
-  data: lsUser,
+  data: null,
+  loans: [],
   isLoading: false,
 };
 
@@ -19,6 +26,7 @@ const userReducer = (state = initial, action) => {
     }
     case USER_LOGIN_SUCCESS: {
       return {
+        ...state,
         data: payload,
         isLoading: false,
       };
@@ -27,6 +35,30 @@ const userReducer = (state = initial, action) => {
       return {
         ...initial,
         data: null,
+      };
+    }
+    case LOAN_TAKE_SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case LOAN_LIST_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case LOAN_LIST_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        loans: payload,
+      };
+    }
+    case LOAN_LIST_ADD: {
+      return {
+        ...state,
+        loans: [...state.loans, payload],
       };
     }
     default: {

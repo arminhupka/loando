@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import AccountLayout from '../layouts/AccountLayout';
+import { getUserLoans } from '../actions/loanActions';
 
 // Styled Components
 const Wrapper = styled.div`
@@ -33,14 +34,19 @@ const StyledItem = styled.li`
 `;
 
 const UserHistoryView = () => {
-  const loans = useSelector((state) => state.user.data.loans);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getUserLoans());
+  }, []);
 
   return (
     <AccountLayout>
       <Wrapper>
         <h1>Twoja historia pożyczek</h1>
         <StyledList>
-          {loans.length !== 0 ? loans.map((loan) => <StyledItem key={loan._id}>{loan.value}</StyledItem>) : null}
+          {user.loans.length !== 0 ? user.loans.map((loan) => <StyledItem>{loan.value}</StyledItem>) : null}
         </StyledList>
       </Wrapper>
     </AccountLayout>
