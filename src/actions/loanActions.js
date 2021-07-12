@@ -1,13 +1,18 @@
 import api from '../utils/api';
 import {
   NEW_LOAN_SETTINGS,
-  LOAN_TAKE_SUCCESS,
   LOAN_LIST_REQUEST,
   LOAN_LIST_SUCCESS,
-  LOAN_LIST_ADD,
+  LOAN_LIST_FAIL,
   LOAN_PAY_SUCCESS,
   LOAN_PAY_REQUEST,
   LOAN_DETAILS_SUCCESS,
+  LOAN_TAKE_REQUEST,
+  LOAN_TAKE_SUCCESS,
+  LOAN_TAKE_FAIL,
+  LOAN_DETAILS_REQUEST,
+  LOAN_DETAILS_FAIL,
+  LOAN_TAKE_RESET,
 } from './types';
 
 export const setNewLoan = (value, days) => (dispatch) => {
@@ -23,6 +28,10 @@ export const setNewLoan = (value, days) => (dispatch) => {
 export const takeNewLoan = () => async (dispatch, getState) => {
   const { token } = await getState().user.data;
 
+  dispatch({
+    type: LOAN_TAKE_REQUEST,
+  });
+
   try {
     const { data } = await api({
       method: 'POST',
@@ -35,19 +44,16 @@ export const takeNewLoan = () => async (dispatch, getState) => {
         days: 30,
       },
     });
-
     dispatch({
-      type: LOAN_LIST_ADD,
+      type: LOAN_TAKE_SUCCESS,
       payload: data,
     });
   } catch (err) {
     console.log(err.response);
+    dispatch({
+      type: LOAN_TAKE_FAIL,
+    });
   }
-
-  dispatch({
-    type: LOAN_TAKE_SUCCESS,
-    payload: Math.random(),
-  });
 };
 
 export const getUserLoans = () => async (dispatch, getState) => {
@@ -71,12 +77,18 @@ export const getUserLoans = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (err) {
-    console.log(err.response);
+    dispatch({
+      type: LOAN_LIST_FAIL,
+    });
   }
 };
 
 export const getLoanDetails = (id) => async (dispatch, getState) => {
   const { token } = await getState().user.data;
+
+  dispatch({
+    type: LOAN_DETAILS_REQUEST,
+  });
 
   try {
     const { data } = await api({
@@ -93,6 +105,9 @@ export const getLoanDetails = (id) => async (dispatch, getState) => {
     });
   } catch (err) {
     console.log(err.response);
+    dispatch({
+      type: LOAN_DETAILS_FAIL,
+    });
   }
 };
 
@@ -129,3 +144,5 @@ export const payLoan = (id, value) => async (dispatch, getState) => {
     console.log(err.response);
   }
 };
+
+export const cleanGrantedLoan = () => (dispatch) => dispatch({ type: LOAN_TAKE_RESET });

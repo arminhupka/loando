@@ -70,12 +70,7 @@ const Sidebar = () => {
     <SidebarWrapper>
       <StyledList>
         <StyledItem>
-          <Link to='/konto'>
-            <FaHome /> Dashboard
-          </Link>
-        </StyledItem>
-        <StyledItem>
-          <Link to='/konto/nowa-pozyczka'>
+          <Link to='/konto/'>
             <FaHome /> Nowa pożyczka
           </Link>
         </StyledItem>

@@ -64,9 +64,10 @@ const StyledTable = styled.table`
       :last-child {
         display: flex;
         padding: 0.6rem;
-        ${Button} {
-          width: 100%;
-        }
+      }
+      ${Button} {
+        flex: 1;
+        width: 100%;
       }
     }
 
@@ -118,7 +119,7 @@ const Table = ({ loans }) => {
 
   const handlePayButton = (id) =>
     history.push({
-      pathname: '/konto/splac',
+      pathname: `/konto/pozyczka/${id}`,
       state: {
         id,
       },
@@ -140,15 +141,21 @@ const Table = ({ loans }) => {
         {loans.map((loan) => (
           <tr key={loan._id}>
             <td>{loan.value}</td>
-            <td>3200</td>
+            <td>{loan.value - loan.paid}</td>
             <td>{`${new Date(loan.createdAt).toLocaleDateString()}`}</td>
             <td>{daysToPay(loan.createdAt, loan.days)}</td>
             <td>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</td>
-            <td>
-              <Button type='button' onClick={() => handlePayButton(loan._id)}>
-                Spłać
-              </Button>
-            </td>
+            {loan.isActive ? (
+              <td>
+                <Button type='button' onClick={() => handlePayButton(loan._id)}>
+                  Spłać
+                </Button>
+              </td>
+            ) : (
+              <td>
+                <Button type='button'>Zamknięta</Button>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

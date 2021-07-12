@@ -132,7 +132,7 @@ const Overlay = styled.div`
 `;
 
 const Nav = ({ isOpen, onToggle }) => {
-  const { user } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   return (
     <>
@@ -141,9 +141,9 @@ const Nav = ({ isOpen, onToggle }) => {
           <LoginItem>
             <StyledAvatar />
             <InfoWrapper>
-              {user ? (
+              {user.data ? (
                 <>
-                  <span>Witaj, {user.firstName}</span>
+                  <span>Witaj, {user.data.firstName}</span>
                   <Link to='/konto'>
                     <span>Twoje konto</span>
                   </Link>

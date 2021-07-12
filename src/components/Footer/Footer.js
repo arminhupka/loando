@@ -18,6 +18,7 @@ const Widget = styled.div``;
 
 const FooterContent = styled.div`
   padding: 5rem 0;
+
   ${Container} {
     display: grid;
     grid-template-columns: 1fr;
@@ -44,10 +45,7 @@ const Footer = () => (
       <Container>
         <Widget>
           <h1>Loando</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsam placeat repudiandae similique voluptates
-            voluptatum?
-          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsam placeat repudiandae similique voluptates voluptatum?</p>
         </Widget>
         <Widget>
           <h1>Widget</h1>

@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
 const UserHistoryView = () => {
   const dispatch = useDispatch();
-  const loans = useSelector((state) => state.user.loans);
+  const userLoans = useSelector((state) => state.loansList);
 
   useEffect(() => {
     dispatch(getUserLoans());
@@ -28,7 +28,7 @@ const UserHistoryView = () => {
     <AccountLayout>
       <Wrapper>
         <h1>Twoja historia pożyczek</h1>
-        <Table loans={loans} />
+        {userLoans.isLoading ? <h1>wczytuje</h1> : <Table loans={userLoans.data} />}
       </Wrapper>
     </AccountLayout>
   );

@@ -4,10 +4,6 @@ export const addAlert = (msg, type) => (dispatch) => {
   const id = Math.floor(Math.random() * 10000);
 
   dispatch({
-    type: ALERT_REMOVE,
-  });
-
-  dispatch({
     type: ALERT_ADD,
     payload: {
       id,
@@ -15,4 +11,10 @@ export const addAlert = (msg, type) => (dispatch) => {
       type,
     },
   });
+
+  setTimeout(() => {
+    dispatch({
+      type: ALERT_REMOVE,
+    });
+  }, 5000);
 };

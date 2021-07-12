@@ -10,11 +10,10 @@ import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import ContactView from './views/ContactView';
-import UserProfileView from './views/UserProfileView';
 import UserNewLoanView from './views/UserNewLoanView';
 import UserHistoryView from './views/UserHistoryView';
 import UserSettingsView from './views/UserSettingsView';
-import UserPayLoanView from './views/UserPayLoanView';
+import UserLoanDetailsView from './views/UserLoanDetailsView';
 import NotFoundView from './views/NotFoundView';
 
 const App = () => (
@@ -31,10 +30,9 @@ const App = () => (
         <Route exact path='/zaloguj' component={LoginView} />
         <Route exact path='/rejestracja' component={RegisterView} />
         <Route exact path='/kontakt' component={ContactView} />
-        <PrivateRoute exact path='/konto' component={UserProfileView} />
+        <PrivateRoute exact path='/konto' component={UserNewLoanView} />
         <PrivateRoute exact path='/konto/historia' component={UserHistoryView} />
-        <PrivateRoute exact path='/konto/nowa-pozyczka' component={UserNewLoanView} />
-        <PrivateRoute exact path='/konto/splac' component={UserPayLoanView} />
+        <PrivateRoute exact path='/konto/pozyczka/:id' component={UserLoanDetailsView} />
         <PrivateRoute exact path='/konto/ustawienia' component={UserSettingsView} />
         <Route exact path='*' component={NotFoundView} />
       </Switch>

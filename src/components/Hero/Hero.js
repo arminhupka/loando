@@ -36,6 +36,7 @@ const TextWrapper = styled.div`
   h1 {
     margin-bottom: 1rem;
   }
+
   p {
     width: 70%;
   }
@@ -57,8 +58,8 @@ const Hero = () => (
       <TextWrapper>
         <h1>Some awesome description</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam deserunt ducimus expedita impedit iusto minus tenetur
-          totam voluptates. Itaque, odit.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam deserunt ducimus expedita impedit iusto minus tenetur totam voluptates.
+          Itaque, odit.
         </p>
       </TextWrapper>
       <LoanCalc />

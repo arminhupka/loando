@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+
+// Actions
+import { cleanGrantedLoan, getUserLoans, takeNewLoan } from '../actions/loanActions';
 
 // Components
 import AccountLayout from '../layouts/AccountLayout';
 import RangeInput from '../components/Elements/RangeInput/RangeInput';
 import Button from '../components/Elements/Button/Button';
-import { takeNewLoan } from '../actions/loanActions';
 
 // Styled Components
 const Wrapper = styled.div`
@@ -35,10 +37,26 @@ const FormWrapper = styled.div`
   }
 `;
 
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  span {
+    :first-child {
+      font-size: 2rem;
+    }
+    :last-child {
+      font-size: 2.8rem;
+      font-weight: 600;
+    }
+  }
+`;
+
 const UserNewLoanView = () => {
   const dispatch = useDispatch();
   const newLoanValues = useSelector((state) => state.newLoan);
-  const userLoans = useSelector((state) => state.user.loans);
+  const grantedLoan = useSelector((state) => state.grantedLoan);
+  const loansList = useSelector((state) => state.loansList);
 
   const [value, setValue] = useState(newLoanValues.value);
   const [days, setDays] = useState(newLoanValues.days);
@@ -47,28 +65,46 @@ const UserNewLoanView = () => {
 
   const handleDaysRange = (e) => setDays(e.target.value);
 
+  const handleCleanButton = () => dispatch(cleanGrantedLoan());
+
   const handleSubmitButton = () => dispatch(takeNewLoan());
 
-  const allowNewLoan = () => {
-    const filteredLoans = userLoans.filter((loan) => loan.isActive === true);
-    return filteredLoans.length < 5;
-  };
+  useEffect(() => {
+    dispatch(getUserLoans());
+  }, []);
 
   return (
     <AccountLayout>
       <Wrapper>
         <h1>Nowa pożyczka</h1>
-        {allowNewLoan() ? (
-          <FormWrapper>
-            <h2>Ustaw parametry pożyczki</h2>
-            <RangeInput type='range' min={100} max={3500} step={100} value={value} onChange={handleValueRange} />
-            <RangeInput type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
-            <Button alternative onClick={handleSubmitButton}>
-              Weź pożyczkę
-            </Button>
-          </FormWrapper>
+        {loansList.data.length < 5 ? <h1>OK</h1> : <h1>NIE OK</h1>}
+        {!grantedLoan.isLoading ? (
+          <>
+            {grantedLoan.data ? (
+              <>
+                <h1>PRZYZNANO</h1>
+                <Button onClick={handleCleanButton}>Zamknij okno</Button>
+              </>
+            ) : (
+              <FormWrapper>
+                <Row>
+                  <span>Pożyczasz</span>
+                  <span>{value}</span>
+                </Row>
+                <RangeInput type='range' min={100} max={3500} step={100} value={value} onChange={handleValueRange} />
+                <Row>
+                  <span>Okres</span>
+                  <span>{days}</span>
+                </Row>
+                <RangeInput type='range' min={5} max={30} step={5} value={days} onChange={handleDaysRange} />
+                <Button alternative onClick={handleSubmitButton}>
+                  Weź pożyczkę
+                </Button>
+              </FormWrapper>
+            )}
+          </>
         ) : (
-          <h1>Nie możesz obecnie wziąć nowej pożyczki</h1>
+          <h1>Ładowanie</h1>
         )}
       </Wrapper>
     </AccountLayout>

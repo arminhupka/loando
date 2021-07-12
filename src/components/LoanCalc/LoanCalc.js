@@ -5,16 +5,20 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import devices from '../../styles/devices';
 
-// Components
-import Button from '../Elements/Button/Button';
-import RangeInput from '../Elements/RangeInput/RangeInput';
+// Hooks
+import useCommission from '../../hooks/useCommission';
 
 // Actions
 import { setNewLoan } from '../../actions/loanActions';
 
+// Components
+import Button from '../Elements/Button/Button';
+import RangeInput from '../Elements/RangeInput/RangeInput';
+
 // Styled Components
 const CalcWrapper = styled.div`
   width: 100%;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.primary};
@@ -29,6 +33,7 @@ const CalcWrapper = styled.div`
 
   @media screen and ${devices.lg} {
     max-width: 40rem;
+    margin-top: 0;
   }
 `;
 
@@ -69,6 +74,23 @@ const InfoWrapper = styled.div`
   background: #fff;
 `;
 
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`;
+
+const StyledTr = styled.tr`
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.gray};
+  :last-child {
+    font-weight: 600;
+  }
+`;
+
+const StyledTd = styled.td``;
+
 const LoanCalc = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -78,22 +100,23 @@ const LoanCalc = () => {
   const [loanValue, setLoanValue] = useState(1000);
   const [days, setDays] = useState(20);
 
+  const { showPayDay, commission, overallPayment } = useCommission(loanValue, days);
+
   const handleRangeInput = (e) => {
-    setLoanValue(e.target.value);
+    setLoanValue(Number(e.target.value));
   };
 
   const handleDaysRange = (e) => {
-    setDays(e.target.value);
+    setDays(Number(e.target.value));
   };
 
   const handleButton = () => {
     dispatch(setNewLoan(loanValue, days));
     if (user.data) {
-      history.push('/konto/nowa-pozyczka');
+      history.push('/konto');
     }
     history.push('/zaloguj');
   };
-
   return (
     <CalcWrapper>
       <TopWrapper>
@@ -119,11 +142,26 @@ const LoanCalc = () => {
         )}
       </TopWrapper>
       <InfoWrapper>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus molestias sunt temporibus velit voluptatum. Aut
-          ducimus enim nam soluta. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur culpa cupiditate dicta
-          dolore nihil vero?
-        </p>
+        <StyledTable>
+          <tbody>
+            <StyledTr>
+              <StyledTd>Kwota pożyczki</StyledTd>
+              <StyledTd>{loanValue}</StyledTd>
+            </StyledTr>
+            <StyledTr>
+              <StyledTd>Dzień spłaty</StyledTd>
+              <StyledTd>{showPayDay()}</StyledTd>
+            </StyledTr>
+            <StyledTr>
+              <StyledTd>Prowizja</StyledTd>
+              <StyledTd>{commission()}</StyledTd>
+            </StyledTr>
+            <StyledTr>
+              <StyledTd>Do spłaty</StyledTd>
+              <StyledTd>{overallPayment()}</StyledTd>
+            </StyledTr>
+          </tbody>
+        </StyledTable>
       </InfoWrapper>
     </CalcWrapper>
   );

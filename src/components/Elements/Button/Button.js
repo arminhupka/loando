@@ -8,19 +8,22 @@ const Button = styled.button`
   border: none;
   border-radius: 0.3rem;
 
-  :hover {
-    background: ${({ theme }) => theme.primaryDark};
-  }
-
   ${({ alternative }) =>
     alternative &&
     css`
       color: ${({ theme }) => theme.primary};
       background: #fff;
+
       :hover {
         background: ${({ theme }) => theme.gray};
       }
     `};
+
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      background: red;
+    `}
 `;
 
 export default Button;
