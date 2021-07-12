@@ -34,7 +34,7 @@ const Content = styled.div`
 const ChildrenContent = styled.main`
   @media screen and ${devices.lg} {
     flex: 1 auto;
-    padding: 2rem;
+    padding: 2rem 0 2rem 2rem;
   }
 `;
 

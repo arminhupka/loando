@@ -56,7 +56,6 @@ const UserNewLoanView = () => {
   const dispatch = useDispatch();
   const newLoanValues = useSelector((state) => state.newLoan);
   const grantedLoan = useSelector((state) => state.grantedLoan);
-  const loansList = useSelector((state) => state.loansList);
 
   const [value, setValue] = useState(newLoanValues.value);
   const [days, setDays] = useState(newLoanValues.days);
@@ -77,7 +76,6 @@ const UserNewLoanView = () => {
     <AccountLayout>
       <Wrapper>
         <h1>Nowa pożyczka</h1>
-        {loansList.data.length < 5 ? <h1>OK</h1> : <h1>NIE OK</h1>}
         {!grantedLoan.isLoading ? (
           <>
             {grantedLoan.data ? (
