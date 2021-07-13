@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Actions
-import { cleanGrantedLoan, getUserLoans, takeNewLoan } from '../actions/loanActions';
+import { clearLoanDecision, getUserLoans, takeNewLoan } from '../actions/loanActions';
 
 // Components
 import AccountLayout from '../layouts/AccountLayout';
@@ -64,7 +64,7 @@ const UserNewLoanView = () => {
 
   const handleDaysRange = (e) => setDays(e.target.value);
 
-  const handleCleanButton = () => dispatch(cleanGrantedLoan());
+  const handleCleanButton = () => dispatch(clearLoanDecision());
 
   const handleSubmitButton = () => dispatch(takeNewLoan());
 
@@ -74,6 +74,12 @@ const UserNewLoanView = () => {
 
   return (
     <AccountLayout>
+      {grantedLoan.error && (
+        <Wrapper>
+          <h1>Niestety nie mogliśmy przyznać Ci nowej pożyczki.</h1>
+          <Button onClick={handleCleanButton}>Zamknij</Button>
+        </Wrapper>
+      )}
       <Wrapper>
         <h1>Nowa pożyczka</h1>
         {!grantedLoan.isLoading ? (

@@ -146,7 +146,7 @@ const LoanCalc = () => {
           <tbody>
             <StyledTr>
               <StyledTd>Kwota pożyczki</StyledTd>
-              <StyledTd>{loanValue}</StyledTd>
+              <StyledTd>{loanValue} PLN</StyledTd>
             </StyledTr>
             <StyledTr>
               <StyledTd>Dzień spłaty</StyledTd>
@@ -154,11 +154,11 @@ const LoanCalc = () => {
             </StyledTr>
             <StyledTr>
               <StyledTd>Prowizja</StyledTd>
-              <StyledTd>{commission()}</StyledTd>
+              <StyledTd>{commission()} PLN</StyledTd>
             </StyledTr>
             <StyledTr>
               <StyledTd>Do spłaty</StyledTd>
-              <StyledTd>{overallPayment()}</StyledTd>
+              <StyledTd>{overallPayment()} PLN</StyledTd>
             </StyledTr>
           </tbody>
         </StyledTable>

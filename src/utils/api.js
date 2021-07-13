@@ -2,8 +2,6 @@ import axios from 'axios';
 import store from '../store';
 import { userLogout } from '../actions/userActions';
 
-const token = store.store.getState().user.data.token || null;
-
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URI,
   headers: {
@@ -12,11 +10,7 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(
-  (res) => {
-    console.log(token);
-    res.headers.authorization = `Bearer ${token}`;
-    return res;
-  },
+  (res) => res,
   (err) => {
     if (err.response.status === 401) {
       console.log('xd');

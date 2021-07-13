@@ -1,8 +1,9 @@
-import { LOAN_TAKE_REQUEST, LOAN_TAKE_SUCCESS, LOAN_TAKE_FAIL, LOAN_TAKE_RESET } from '../actions/types';
+import { LOAN_TAKE_REQUEST, LOAN_TAKE_SUCCESS, LOAN_TAKE_FAIL, LOAN_TAKE_RESET, LOAN_TAKE_CLEAR } from '../actions/types';
 
 const initialState = {
   data: null,
   isLoading: false,
+  error: null,
 };
 
 const grantedLoanReducer = (state = initialState, action) => {
@@ -25,6 +26,12 @@ const grantedLoanReducer = (state = initialState, action) => {
       return initialState;
     }
     case LOAN_TAKE_FAIL: {
+      return {
+        ...initialState,
+        error: payload,
+      };
+    }
+    case LOAN_TAKE_CLEAR: {
       return initialState;
     }
     default: {

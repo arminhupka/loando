@@ -13,6 +13,7 @@ import {
   USER_UPDATE_PASSWORD_FAIL,
 } from './types';
 import { addAlert } from './alertActions';
+import { clearLoanDecision, clearUserLoansList } from './loanActions';
 
 export const userRegister = (email, password, firstName, lastName, pesel, id, street, city, postalCode) => async (dispatch) => {
   dispatch({
@@ -130,4 +131,6 @@ export const userLogout = () => (dispatch) => {
   dispatch({
     type: USER_LOGIN_LOGOUT,
   });
+  dispatch(clearLoanDecision());
+  dispatch(clearUserLoansList());
 };

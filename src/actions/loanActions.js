@@ -4,15 +4,16 @@ import {
   LOAN_LIST_REQUEST,
   LOAN_LIST_SUCCESS,
   LOAN_LIST_FAIL,
+  LOAN_LIST_CLEAR,
   LOAN_PAY_SUCCESS,
   LOAN_PAY_REQUEST,
   LOAN_DETAILS_SUCCESS,
+  LOAN_DETAILS_REQUEST,
+  LOAN_DETAILS_FAIL,
   LOAN_TAKE_REQUEST,
   LOAN_TAKE_SUCCESS,
   LOAN_TAKE_FAIL,
-  LOAN_DETAILS_REQUEST,
-  LOAN_DETAILS_FAIL,
-  LOAN_TAKE_RESET,
+  LOAN_TAKE_CLEAR,
 } from './types';
 
 export const setNewLoan = (value, days) => (dispatch) => {
@@ -49,9 +50,11 @@ export const takeNewLoan = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (err) {
-    console.log(err.response);
     dispatch({
       type: LOAN_TAKE_FAIL,
+      payload: {
+        message: '',
+      },
     });
   }
 };
@@ -82,6 +85,8 @@ export const getUserLoans = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const clearUserLoansList = () => (dispatch) => dispatch({ type: LOAN_LIST_CLEAR });
 
 export const getLoanDetails = (id) => async (dispatch, getState) => {
   const { token } = await getState().user.data;
@@ -145,4 +150,4 @@ export const payLoan = (id, value) => async (dispatch, getState) => {
   }
 };
 
-export const cleanGrantedLoan = () => (dispatch) => dispatch({ type: LOAN_TAKE_RESET });
+export const clearLoanDecision = () => (dispatch) => dispatch({ type: LOAN_TAKE_CLEAR });

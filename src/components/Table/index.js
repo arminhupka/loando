@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 // Utils
 import devices from '../../styles/devices';
@@ -61,10 +62,12 @@ const StyledTable = styled.table`
       border-bottom: 1px solid #eee;
       position: relative;
       padding-left: 50%;
+
       :last-child {
         display: flex;
         padding: 0.6rem;
       }
+
       ${Button} {
         flex: 1;
         width: 100%;
@@ -140,22 +143,16 @@ const Table = ({ loans }) => {
       <tbody>
         {loans.map((loan) => (
           <tr key={loan._id}>
-            <td>{loan.value}</td>
-            <td>{loan.value - loan.paid}</td>
-            <td>{`${new Date(loan.createdAt).toLocaleDateString()}`}</td>
+            <td>{loan.value} PLN</td>
+            <td>{loan.toPay - loan.paid} PLN</td>
+            <td>{moment(loan.createdAt).format('DD.MM.YYYY')}</td>
             <td>{daysToPay(loan.createdAt, loan.days)}</td>
             <td>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</td>
-            {loan.isActive ? (
-              <td>
-                <Button type='button' onClick={() => handlePayButton(loan._id)}>
-                  Spłać
-                </Button>
-              </td>
-            ) : (
-              <td>
-                <Button type='button'>Zamknięta</Button>
-              </td>
-            )}
+            <td>
+              <Button type='button' onClick={() => handlePayButton(loan._id)}>
+                Szczegóły
+              </Button>
+            </td>
           </tr>
         ))}
       </tbody>

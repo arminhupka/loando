@@ -14,6 +14,10 @@ const Wrapper = styled.div`
   padding: 2rem;
   background: #fff;
   border: 0.1rem solid ${({ theme }) => theme.gray};
+
+  h1 {
+    margin-bottom: 2rem;
+  }
 `;
 
 const UserHistoryView = () => {

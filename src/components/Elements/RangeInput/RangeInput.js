@@ -5,7 +5,7 @@ const RangeInput = styled.input`
   width: 100%;
   background: transparent;
   ::-webkit-slider-container {
-    padding: 0.2rem;
+    padding: 0.5rem;
     background: #fff;
     border-radius: 2rem;
   }
